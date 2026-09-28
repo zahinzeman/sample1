@@ -2,10 +2,14 @@ import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl =
   process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://xbndqvzkvzyqvofjjpvg.supabase.co';
-const supabaseKey =
+const supabaseAnonKey =
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
   process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
   'sb_publishable_45ISjvn1J6tsfeu5BaUTtw_C7VZzSQZ';
+
+const supabaseServiceRoleKey =
+  process.env.SUPABASE_SERVICE_ROLE_KEY ||
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhibmRxdnprdnp5cXZvZmpqcHZnIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc5MDYwMTM0MCwiZXhwIjoyMTA2MTc3MzQwfQ.sEiWrZCE0Eq0ECd0OdCcvTxgZtYQepM7OjIhTAHajYw';
 
 export interface ProjectInquiry {
   id?: string;
@@ -26,9 +30,22 @@ export interface NewsletterSubscriber {
   email: string;
 }
 
-export const supabase = createClient(supabaseUrl, supabaseKey, {
+/**
+ * Public client for client-side queries
+ */
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     persistSession: true,
+  },
+});
+
+/**
+ * Administrative client for server-side operations (API routes, admin tasks)
+ */
+export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceRoleKey, {
+  auth: {
+    persistSession: false,
+    autoRefreshToken: false,
   },
 });
 

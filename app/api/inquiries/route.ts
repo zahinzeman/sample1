@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { supabaseAdmin } from '@/lib/supabase';
 
 export async function POST(request: Request) {
   try {
@@ -13,7 +13,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('inquiries')
       .insert([
         {
@@ -30,7 +30,7 @@ export async function POST(request: Request) {
       .select();
 
     if (error) {
-      console.error('Supabase insert error:', error);
+      console.error('Supabase admin insert error:', error);
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
