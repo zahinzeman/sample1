@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import SmoothScroll from '@/components/ui/SmoothScroll';
 import CustomCursor from '@/components/ui/CustomCursor';
+import { InquiryProvider } from '@/components/ui/InquiryContext';
 
 export const metadata: Metadata = {
   title: 'Aurelle Studio — Interiors of Quiet, Lasting Luxury',
@@ -63,8 +64,10 @@ export default function RootLayout({
       </head>
       <body className="bg-[#EAE8E0] text-[#303030] font-body min-h-screen selection:bg-[#DE6800] selection:text-white">
         <SmoothScroll>
-          <CustomCursor />
-          {children}
+          <InquiryProvider>
+            <CustomCursor />
+            {children}
+          </InquiryProvider>
         </SmoothScroll>
       </body>
     </html>

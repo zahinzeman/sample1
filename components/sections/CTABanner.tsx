@@ -5,12 +5,14 @@ import Image from 'next/image';
 import { motion, useScroll, useTransform, useReducedMotion, Variants } from 'framer-motion';
 import Button from '../ui/Button';
 import { CUBIC_EASE } from '../ui/motion';
+import { useInquiry } from '../ui/InquiryContext';
 import { siteContent } from '@/content/site';
 
 export default function CTABanner() {
   const containerRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const { cta } = siteContent;
+  const { openInquiry } = useInquiry();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -115,7 +117,7 @@ export default function CTABanner() {
             >
               <Button
                 variant="primary"
-                href={`mailto:${siteContent.brand.email}?subject=Project%20Inquiry%20-%20Aurelle%20Studio`}
+                onClick={() => openInquiry('Bespoke Architectural Project')}
                 className="text-[16px] px-8 py-4"
               >
                 {cta.buttonText}

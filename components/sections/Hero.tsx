@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion, useScroll, useTransform, useReducedMotion, Variants } from 'framer-motion';
 import Button from '../ui/Button';
 import { CUBIC_EASE } from '../ui/motion';
+import { useInquiry } from '../ui/InquiryContext';
 import { siteContent } from '@/content/site';
 
 export default function Hero() {
@@ -43,6 +44,8 @@ export default function Hero() {
       },
     },
   };
+
+  const { openInquiry } = useInquiry();
 
   return (
     <section
@@ -124,7 +127,7 @@ export default function Hero() {
             >
               <Button
                 variant="primary"
-                href="#contact"
+                onClick={() => openInquiry('Residential Interiors')}
                 className="w-full sm:w-auto text-center"
               >
                 {hero.primaryButton}

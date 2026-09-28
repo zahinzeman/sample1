@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Plus } from 'lucide-react';
 import SectionHeader from '../ui/SectionHeader';
 import Button from '../ui/Button';
+import { useInquiry } from '../ui/InquiryContext';
 import { siteContent, FaqItem } from '@/content/site';
 
 interface AccordionItemProps {
@@ -63,6 +64,7 @@ function AccordionItem({ item, index, isOpen, onToggle }: AccordionItemProps) {
 
 export default function FAQ() {
   const { faq } = siteContent;
+  const { openInquiry } = useInquiry();
   const [openIndex, setOpenIndex] = useState<number | null>(0); // First item open by default
 
   const handleToggle = (index: number) => {
@@ -113,7 +115,7 @@ export default function FAQ() {
 
               <Button
                 variant="primary"
-                href="#contact"
+                onClick={() => openInquiry('General Inquiry')}
                 className="w-full text-center"
               >
                 {faq.sideCard.cta}

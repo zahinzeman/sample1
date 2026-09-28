@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import Button from '../ui/Button';
 import { CUBIC_EASE } from '../ui/motion';
+import { useInquiry } from '../ui/InquiryContext';
 import { siteContent } from '@/content/site';
 
 interface MenuOverlayProps {
@@ -13,6 +14,7 @@ interface MenuOverlayProps {
 
 export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
   const { menuOverlay } = siteContent;
+  const { openInquiry } = useInquiry();
 
   useEffect(() => {
     if (isOpen) {
@@ -121,8 +123,10 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
               <div>
                 <Button
                   variant="primary"
-                  href="#contact"
-                  onClick={onClose}
+                  onClick={() => {
+                    onClose();
+                    openInquiry();
+                  }}
                   className="w-full sm:w-auto"
                 >
                   {menuOverlay.ctaCard.buttonText}
